@@ -14,11 +14,11 @@ return new class extends Migration {
             $table->id();
             $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
             $table->foreignId("product_id")->constrained("products")->cascadeOnDelete();
-            $table->integer("quantity")->default(0);
-            $table->decimal("price");
-            $table->decimal("tax")->default(0);
-            $table->decimal("profit");
-            $table->decimal("total");
+            $table->integer("quantity")->nullable();
+            $table->decimal("price")->nullable();
+            $table->decimal("tax")->nullable();
+            $table->decimal("profit")->nullable();
+            $table->decimal("total")->nullable();
             $table->timestamps();
         });
     }

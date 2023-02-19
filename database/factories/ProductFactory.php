@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            "user_id" => User::factory()->create()->id,
             "name" => fake()->name(),
             "image" => fake()->imageUrl(),
             "sell_price" => fake()->randomNumber(2),

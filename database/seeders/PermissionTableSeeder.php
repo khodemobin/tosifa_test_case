@@ -37,6 +37,12 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 "user_id" => $user1,
+                "model" => Product::class,
+                "action" => PermissionAction::CREATE,
+                "fields" => json_encode(["name", "image", "user_id"])
+            ],
+            [
+                "user_id" => $user1,
                 "model" => Order::class,
                 "action" => PermissionAction::VIEW,
                 "fields" => json_encode(["price", "quantity"])
@@ -76,6 +82,18 @@ class PermissionTableSeeder extends Seeder
                 "model" => Product::class,
                 "action" => PermissionAction::DELETE,
                 "fields" => json_encode(["*"])
+            ],
+            [
+                "user_id" => null,
+                "model" => Product::class,
+                "action" => PermissionAction::VIEW,
+                "fields" => json_encode(["sell_price"])
+            ],
+            [
+                "user_id" => null,
+                "model" => Order::class,
+                "action" => PermissionAction::VIEW,
+                "fields" => json_encode(["total"])
             ],
         ]);
     }
