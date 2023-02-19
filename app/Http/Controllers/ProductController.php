@@ -16,7 +16,6 @@ class ProductController extends Controller
 
     public function index(IndexRequest $request)
     {
-        cache()->flush();
         $user = User::find($request->get("user_id"));
 
         $products = Product::query()->where("user_id", $user->id)->with("orders")->simplePaginate()->items();
@@ -27,7 +26,6 @@ class ProductController extends Controller
             $product["orders"] = $orders;
             return $product;
         });
-
 
         return response()->json(ProductResource::collection($data));
     }

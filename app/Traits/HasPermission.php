@@ -5,7 +5,6 @@ namespace App\Traits;
 use App\Models\Enums\PermissionAction;
 use App\Models\Permission;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 
 trait HasPermission
 {
@@ -31,27 +30,6 @@ trait HasPermission
         return $items;
     }
 
-    private static function getPermissionFields($model, PermissionAction $action): array
-    {
-        $permissions = self::getPermissions($model->user_id);
-        $permissions = collect($permissions)
-            ->where("model", $model::class)
-            ->where("action", $action->value);
-
-        return $permissions->pluck("fields")->flatten()->toArray();
-    }
-
-    private static function getPermissions($userId): array
-    {
-        return Cache::remember("user_permission:{$userId}", 1000, function () use ($userId) {
-            return Permission::query()
-                ->where("user_id", $userId)
-                ->orWhereNull("user_id")
-                ->get()
-                ->toArray();
-        });
-    }
-
     private static function checkPermissionForModel($data, PermissionAction $action)
     {
         if (is_array($data) || $data instanceof Collection) {
@@ -71,5 +49,24 @@ trait HasPermission
         }
 
         return $model;
+    }
+
+    private static function getPermissionFields($model, PermissionAction $action): array
+    {
+        $permissions = self::getPermissions($model->user_id);
+        $permissions = collect($permissions)
+            ->where("model", $model::class)
+            ->where("action", $action->value);
+
+        return $permissions->pluck("fields")->flatten()->toArray();
+    }
+
+    private static function getPermissions($userId): array
+    {
+        return Permission::query()
+            ->where("user_id", $userId)
+            ->orWhereNull("user_id")
+            ->get()
+            ->toArray();
     }
 }
