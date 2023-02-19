@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             "buy_price" => $this->whenHas("buy_price", $this->buy_price),
             "stock" => $this->whenHas("stock", $this->stock),
             "visits" => $this->whenHas("stock", $this->visits),
-            "orders" => OrderResource::collection($this->orders)
+            "orders" => $this->whenHas("orders", OrderResource::collection($this->orders))
         ];
     }
 }
