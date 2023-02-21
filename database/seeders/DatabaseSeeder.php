@@ -93,6 +93,31 @@ class DatabaseSeeder extends Seeder
                 "action" => PermissionAction::DELETE,
                 "fields" => json_encode(["*"])
             ],
+
+            [
+                "user_id" => $user3,
+                "model" => Order::class,
+                "action" => PermissionAction::VIEW,
+                "fields" => json_encode(["*"])
+            ],
+            [
+                "user_id" => $user3,
+                "model" => Order::class,
+                "action" => PermissionAction::CREATE,
+                "fields" => json_encode(["*"])
+            ],
+            [
+                "user_id" => $user3,
+                "model" => Order::class,
+                "action" => PermissionAction::UPDATE,
+                "fields" => json_encode(["*"])
+            ],
+            [
+                "user_id" => $user3,
+                "model" => Order::class,
+                "action" => PermissionAction::DELETE,
+                "fields" => json_encode(["*"])
+            ],
             [
                 "user_id" => null,
                 "model" => Product::class,

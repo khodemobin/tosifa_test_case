@@ -37,20 +37,4 @@ user3:
 
 all permissions
 
-## Product list request
-
-GET localhost:8000/api/products?user_id=1
-
-## Update Product
-
-POST localhost:8000/api/products/1
-Content-Type: application/json
-
-{
-"name": "test name",
-"image": "test image",
-"sell_price": 1000,
-"buy_price": 900,
-"stock": 100,
-"visits": 1000,
-}
+## For using api read request.http

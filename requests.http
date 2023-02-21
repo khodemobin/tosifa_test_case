@@ -1,0 +1,18 @@
+### Product list request
+GET http://localhost:8000/api/products?user_id=1
+Accept: application/json
+
+### Update Product
+POST http://localhost:8000/api/products/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "test name",
+  "image": "test image",
+  "sell_price": 1000,
+  "buy_price": 900,
+  "stock": 100,
+  "visits": 1000,
+  "user_id": 1
+}

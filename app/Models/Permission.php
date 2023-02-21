@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use App\Models\Enums\PermissionAction;
-use App\Traits\HasPermission;
+use App\Services\PermissionManger;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Permission extends Model
 {
-    use  HasPermission;
-
     protected $casts = [
         "fields" => "array",
         "action" => PermissionAction::class

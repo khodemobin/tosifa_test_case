@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Enums\PermissionAction;
+use App\Models\User;
+use App\Services\PermissionManger;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define("model-permission", static function (User $user, string $model, array $data, PermissionAction $action) {
+            $permissionManger = app()->make(PermissionManger::class);
+            $abilities = $permissionManger->getUserPermissionFields($user->id, $model, $action);
+            if ($permissionManger->can($data, $abilities)) {
+                return Response::allow();
+            }
+
+            return Response::deny("Allowed fields: " . implode(", ", $abilities));
+        });
     }
 }
